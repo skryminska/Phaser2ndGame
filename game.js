@@ -37,7 +37,7 @@ function create() {
     platforms = this.physics.add.staticGroup();
 
     //додаємо цикл для землі на весь екран
-        for (var x=0; x<worldWidth; x=x+400){
+        for (var x=0; x<worldWidth; x=x+600){
             console.log(x)
             platforms.create(x, 1080 - 32, 'ground').setOrigin(0,0).refreshBody();
         }
