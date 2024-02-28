@@ -19,13 +19,17 @@ var config = {
 
 var game = new Phaser.Game(config);
 
+var worldWidth = 9600;
+
 function preload() {
         // Вставити фон і деталі гри(асети)
         this.load.image('fon', 'assets/fon.png');
+        //this.load.image('', 'assets/fon.png'); вставити асети
 }
 
 function create() {
-    this.add.image(0, 0, 'fon'). setOrigin(0,0);
+    
+        // Створили фон плиткою
+    this.add.tileSprite(0, 0, worldWidth, 1080, 'fon'). setOrigin(0,0);
 
-   
 }
