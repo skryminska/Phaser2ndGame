@@ -51,13 +51,13 @@ function create() {
         this.physics.add.collider(player, platforms);
 
         // налаштування камери
-        this.cameras.main.setBounce(0, 0, worldWidth, 1080);
-        this.physics.world.setBounce(0, 0, worldWidth, 1080);
+        this.cameras.main.setBounds(0, 0, worldWidth, 1080);
+        this.physics.world.setBounds(0, 0, worldWidth, 1080);
 
         //Слідкування камери за гравцем 
         this.cameras.main.startFollow(player);
 
-        player = this.physics.add.sprite(228, 48, 'dude');//подивитися що там 
+        //player = this.physics.add.sprite(228, 48, 'dude'); подивитися що там 
 
         this.anims.create({
             key: 'left',
