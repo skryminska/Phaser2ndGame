@@ -27,6 +27,10 @@ function preload() {
         this.load.image('fon', 'assets/fon2.2.jpg');
         this.load.image('ground', 'assets/platform.png'); 
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+        //додали нові асети
+        this.load.image('bush', 'assets/Bush (1).png'); 
+        this.load.image('mashroom', 'assets/Mushroom_1.png'); 
+        this.load.image('stone', 'assets/Stone.png'); 
 }
 
 function create() {
@@ -35,15 +39,29 @@ function create() {
 
 //Додали платформи, фіксація 
     platforms = this.physics.add.staticGroup();
+    objects = this.physics.add.staticGroup();
 
     //додаємо цикл для землі на весь екран
-        for (var x=0; x<worldWidth; x=x+600){
+        for (var x=0; x<worldWidth; x=x+32){
             console.log(x)
-            platforms.create(x, 1080 - 32, 'ground').setOrigin(0,0).refreshBody();
+            platforms.create(x, 1080 - 250, 'ground').setOrigin(0,0).refreshBody();
         }
 
+        //adding a new assets
+        //this.add.tileSprite(0, 1, worldWidth, 1650, 'stone')
+
+        //added a stone
+        for (var x=0; x<worldWidth; x = x + Phaser.Math.Between(200,800)){
+            console.log(x)
+            objects.create(x, 1080 - 250, 'stone').setOrigin(0,1).refreshBody();
+            objects.create(x = x + Phaser.Math.Between(50,200) , 1080 - 250, 'bush').setOrigin(0,1).refreshBody();
+        
+        }
+
+        
+
         //Створюємо гравця
-        player = this.physics.add.sprite(1500,900,'dude');
+        player = this.physics.add.sprite(1500,600,'dude');
         player.setBounce(0.2);
         player.setCollideWorldBounds(false);
 
