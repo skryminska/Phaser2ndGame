@@ -29,7 +29,7 @@ function preload() {
         this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
         //додали нові асети
         this.load.image('bush', 'assets/Bush (1).png'); 
-        this.load.image('mashroom', 'assets/Mushroom_1.png'); 
+        this.load.image('mushroom', 'assets/Mushroom_1.png'); 
         this.load.image('stone', 'assets/Stone.png'); 
 }
 
@@ -50,16 +50,18 @@ function create() {
         //adding a new assets
         //this.add.tileSprite(0, 1, worldWidth, 1650, 'stone')
 
-        //added a stone
+        //adds a new assets 
         for (var x=0; x<worldWidth; x = x + Phaser.Math.Between(200,800)){
             console.log(x)
             objects.create(x, 1080 - 250, 'stone').setOrigin(0,1).refreshBody();
             objects.create(x = x + Phaser.Math.Between(50,200) , 1080 - 250, 'bush').setOrigin(0,1).refreshBody();
-        
+            objects.create(x = x + Phaser.Math.Between(100,300) , 1080 - 250, 'mushroom').setOrigin(0,1).refreshBody();
         }
 
-        
 
+        //setDepth(objects, setScale(Phaser.Math.FloatBetween(0.5 , 1.5))
+
+        
         //Створюємо гравця
         player = this.physics.add.sprite(1500,600,'dude');
         player.setBounce(0.2);
