@@ -78,7 +78,7 @@ function create() {
         this.cameras.main.startFollow(player);
 
         //player = this.physics.add.sprite(228, 48, 'dude'); подивитися що там 
-
+            
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
