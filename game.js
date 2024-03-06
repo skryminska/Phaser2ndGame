@@ -21,6 +21,7 @@ var player;
 var platforms;
 var worldWidth = 9600;
 var game = new Phaser.Game(config);
+var playerSpeed = 1000
 
 function preload() {
         // Вставити фон і деталі гри(асети)
@@ -31,33 +32,52 @@ function preload() {
         this.load.image('bush', 'assets/Bush (1).png'); 
         this.load.image('mushroom', 'assets/Mushroom_1.png'); 
         this.load.image('stone', 'assets/Stone.png'); 
+
+        //sky platforms
+        this.load.image('skyGroundStart', 'assets/Tiles/13.png');
+        this.load.image('skyGround', 'assets/Tiles/14.png');
+        this.load.image('skyGroundEnd', 'assets/Tiles/15.png');
 }
 
 function create() {
         // Створили фон плиткою
-    this.add.tileSprite(0, 0, worldWidth, 1080, 'fon'). setOrigin(0,0);
+    this.add.tileSprite(0, 0, worldWidth, 1080, 'fon')
+        .setOrigin(0,0)
+        .setScale(1)
+        .setDepth(0);
 
 //Додали платформи, фіксація 
     platforms = this.physics.add.staticGroup();
-    objects = this.physics.add.staticGroup();
 
     //додаємо цикл для землі на весь екран
         for (var x=0; x<worldWidth; x=x+32){
             console.log(x)
-            platforms.create(x, 1080 - 250, 'ground').setOrigin(0,0).refreshBody();
+            platforms.create(x, 1080 - 250, 'ground')
+                .setOrigin(0,0)
+                .refreshBody();
         }
 
         //adding a new assets
         //this.add.tileSprite(0, 1, worldWidth, 1650, 'stone')
 
         //adds a new assets 
-        for (var x=0; x<worldWidth; x = x + Phaser.Math.Between(200,800)){
-            console.log(x)
-            objects.create(x, 1080 - 250, 'stone').setOrigin(0,1).refreshBody();
-            objects.create(x = x + Phaser.Math.Between(50,200) , 1080 - 250, 'bush').setOrigin(0,1).refreshBody();
-            objects.create(x = x + Phaser.Math.Between(100,300) , 1080 - 250, 'mushroom').setOrigin(0,1).refreshBody();
-        }
+        objects = this.physics.add.staticGroup();
 
+        for (var x=0; x<worldWidth; x = x + Phaser.Math.Between(200,800)){
+            //console.log(x)
+            objects.create(x, 1080 - 250, 'stone')
+            .setOrigin(0,1)
+            .refreshBody();
+
+            objects.create(x = x + Phaser.Math.Between(50,200) , 1080 - 250, 'bush')
+            .setOrigin(0,1)
+            .refreshBody();
+
+            objects.create(x = x + Phaser.Math.Between(100,300) , 1080 - 250, 'mushroom')
+            .setOrigin(0,1)
+            .refreshBody();
+        } 
+        
 
         //setDepth(objects, setScale(Phaser.Math.FloatBetween(0.5 , 1.5))
 
@@ -106,13 +126,13 @@ function update () {
 
     if (cursors.left.isDown)
     {
-        player.setVelocityX(-160);
+        player.setVelocityX(-playerSpeed);
 
         player.anims.play('left', true);
     }
     else if (cursors.right.isDown)
     {
-        player.setVelocityX(160);
+        player.setVelocityX(playerSpeed);
 
         player.anims.play('right', true);
     }
