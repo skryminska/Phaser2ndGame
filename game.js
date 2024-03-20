@@ -26,7 +26,7 @@ var playerSpeed = 1000
 var score = 0
 var scoreText
 var stars
- 
+
 
 function preload() {
     // Вставити фон і деталі гри(асети)
@@ -58,14 +58,12 @@ function create() {
 
     //додаємо цикл для землі на весь екран
     for (var x = 0; x < worldWidth; x = x + 32) {
-        console.log(x)
+        //console.log(x)
         platforms.create(x, 1080 - 250, 'ground')
             .setOrigin(0, 0)
             .refreshBody();
     }
 
-    //adding a new assets
-    //this.add.tileSprite(0, 1, worldWidth, 1650, 'stone')
 
     //adds a new assets 
     objects = this.physics.add.staticGroup();
@@ -144,7 +142,7 @@ function create() {
     //додаємо зіроки 
     stars = this.physics.add.group({
         key: 'star',
-        repeat: 120,
+        repeat: 1200,
         setXY: { x: 12, y: 0, stepX: 70 }
     });
 
@@ -156,45 +154,45 @@ function create() {
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(stars, platforms);
-    //this.physics.add.overlap(player, stars, collectStar, null, this);
+    this.physics.add.collider(player, stars, collectStar, null, this);
 
-    
+
     // рахунок
-    scoreText = this.add.text(100, 100, 'Score : 0', { fontSize: '20px', fill: '#FFF'})
-        .setOrigin(0,0)
+    scoreText = this.add.text(100, 100, 'Score : 0', { fontSize: '20px', fill: '#FFF' })
+        .setOrigin(0, 0)
         .setScrollFactor(0)
 
     //життя персонажа
-    lifeText = this.add.text(800, 100, showLife(), { fontSize: '40px', foll: '#FFF'})
-        .setIrigin(0, 0)
-        .setScrollFactor(0)
+    //lifeText = this.add.text(800, 100, showLife(), { fontSize: '40px', foll: '#FFF'})
+    //.setIrigin(0, 0)
+    //.setScrollFactor(0)
 
 
 
-        //reset button
-        var resetButton = this.add.text(400, 450, 'reset', { fontSize: '40px', fill: '#ccc'})
-            .setInteractive()
-            .setScrollFactor(0);
+    //reset button
+        //var resetButton = this.add.text(400, 450, 'reset', { fontSize: '40px', fill: '#ccc'})
+        //.setInteractive()
+        //.setScrollFactor(0);
 
-        resetButton.on( 'pointerdown', function () {
-            console.log( 'restart')
-            refreshBody()
-        });
-
-
-        // формування смуги життя 
-        //function showLife () {
-            //var lifeLine = ''
-
-            //for (var i = 0: i < life; i++) {
-                //lifeLine = lifeLine + ''
+    //resetButton.on( 'pointerdown', function () {
+    //console.log( 'restart')
+    //refreshBody()
+    //});
 
 
+    // формування смуги життя 
+    //function showLife () {
+    //var lifeLine = ''
 
-            //}
+    //for (var i = 0: i < life; i++) {
+    //lifeLine = lifeLine + ''
 
-            //return lifeLine
-        //}
+
+
+    //}
+
+    //return lifeLine
+    //}
 }
 
 function update() {
@@ -216,19 +214,19 @@ function update() {
     }
 
     if (cursors.up.isDown && player.body.touching.down) {
-        player.setVelocityY(-330);
+        player.setVelocityY(-530);
     }
 
-    //colecting 
-     //collectStar( player , star); {
-        //star.disableBody(true, true);
 
-        //if (stars.countActive(true) === 0) {
-            //stars.children.iterate(function (child) {
-                //child.enableBody(true, child.x, 0, true, true);
 
-            //});
-        //}
-    //}
+}
+
+//colecting 
+function collectStar(player, stars) {
+    stars.disableBody(true, true);
+    
+    score += 1;
+    scoreText.setText('Score: ' + score);
+
 
 }
