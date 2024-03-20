@@ -19,10 +19,13 @@ var config = {
 
 var player;
 var platforms;
-var worldWidth = 9600;
+var cursors
+var worldWidth = config.width * 10
 var game = new Phaser.Game(config);
 var playerSpeed = 1000
-//var stars
+var score = 0
+var scoreText
+var stars
  
 
 function preload() {
@@ -153,8 +156,45 @@ function create() {
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(stars, platforms);
+    //this.physics.add.overlap(player, stars, collectStar, null, this);
+
+    
+    // рахунок
+    scoreText = this.add.text(100, 100, 'Score : 0', { fontSize: '20px', fill: '#FFF'})
+        .setOrigin(0,0)
+        .setScrollFactor(0)
+
+    //життя персонажа
+    lifeText = this.add.text(800, 100, showLife(), { fontSize: '40px', foll: '#FFF'})
+        .setIrigin(0, 0)
+        .setScrollFactor(0)
 
 
+
+        //reset button
+        var resetButton = this.add.text(400, 450, 'reset', { fontSize: '40px', fill: '#ccc'})
+            .setInteractive()
+            .setScrollFactor(0);
+
+        resetButton.on( 'pointerdown', function () {
+            console.log( 'restart')
+            refreshBody()
+        });
+
+
+        // формування смуги життя 
+        //function showLife () {
+            //var lifeLine = ''
+
+            //for (var i = 0: i < life; i++) {
+                //lifeLine = lifeLine + ''
+
+
+
+            //}
+
+            //return lifeLine
+        //}
 }
 
 function update() {
