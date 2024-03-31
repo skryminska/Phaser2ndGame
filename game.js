@@ -20,6 +20,7 @@ var config = {
 var player;
 var platforms;
 var cursors
+var resetButton;
 var worldWidth = config.width * 10
 var game = new Phaser.Game(config);
 var playerSpeed = 1000
@@ -90,7 +91,21 @@ function create() {
     //Створюємо гравця
     player = this.physics.add.sprite(1500, 600, 'dude');
     player.setBounce(0.2);
-    player.setCollideWorldBounds(false);
+    player.setCollideWorldBounds(false);y
+
+
+    //додаємо кнопку перезавантаження 
+    resetButton = this.add.image(900, 500, 'resetButton')
+    resetButton.setOrigin(0, 0)
+        .setDepth(10)
+        .setScrollFactor(0)
+        .setInteractive()
+        .on('pointerdown', function () {
+            // Перезавантаження гри
+            location.reload();
+        });
+
+    resetButton.setVisible(false);
 
     //Колізія гравцята платформи
     this.physics.add.collider(player, platforms);
@@ -196,6 +211,9 @@ function create() {
 }
 
 function update() {
+
+    //
+
     // керування
     if (cursors.left.isDown) {
         player.setVelocityX(-playerSpeed);
