@@ -27,11 +27,12 @@ var playerSpeed = 1000
 var score = 0
 var scoreText
 var stars
+var lifesText;
 
 
 function preload() {
     // Вставити фон і деталі гри(асети)
-    this.load.image('fon', 'assets/fon2.2.jpg');
+    this.load.image('fon', 'assets/BG.jpg');
     this.load.image('ground', 'assets/platform.png'); //замінти!
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
     //додали нові асети
@@ -116,6 +117,27 @@ function create() {
 
     //Слідкування камери за гравцем 
     this.cameras.main.startFollow(player);
+
+    //лінія життя
+    //lifeText = this.add.text(1700, 16, showLife(), { fontSize: '32px', fill: '#ffffff' })
+    //.setOrigin(0, 0)
+    //.setScrollFactor(0);
+
+    //hearts 
+    heart = this.physics.add.group({
+        key: 'heart',
+        repeat: 10,
+        setXY: { x: 12, y: 0, stepX: Phaser.Math.FloatBetween(1000, 2500) }
+    }); 
+    heart.children.iterate(function(child) {
+        child.setScale(0.07);
+    });
+
+    heart.children.iterate(function (child) {
+
+        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+
+    });
 
     //player = this.physics.add.sprite(228, 48, 'dude'); подивитися що там 
 
