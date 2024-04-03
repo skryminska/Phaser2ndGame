@@ -23,17 +23,18 @@ var cursors
 var resetButton;
 var worldWidth = config.width * 10
 var game = new Phaser.Game(config);
-var playerSpeed = 1000
+var playerSpeed = 990
 var score = 0
 var scoreText
 var stars
 var lifesText;
+var gameOver = false;
 
 
 function preload() {
     // Вставити фон і деталі гри(асети)
     this.load.image('fon', 'assets/fonfr.jpg');
-    this.load.image('ground', 'assets/platform.png'); //замінти!
+
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
     //додали нові асети
     this.load.image('bush', 'assets/Bush (1).png');
@@ -45,12 +46,16 @@ function preload() {
     this.load.image('skyGround', 'assets/Tiles/14.png');
     this.load.image('skyGroundEnd', 'assets/Tiles/15.png');
 
+    this.load.image('groundStart', 'assets/Tiles/1.png'); 
+    this.load.image('ground', 'assets/Tiles/2.png');
+    this.load.image('groundEnd', 'assets/Tiles/3.png');
+
     this.load.image('star', 'assets/star.png');
 }
 
 function create() {
     // Створили фон плиткою
-    this.add.tileSprite(0, 0, worldWidth, 1080, 'fon')
+    this.add.tileSprite(0 , 0, worldWidth, 1080, 'fon')
         .setOrigin(0, 0)
         .setScale(1)
         .setDepth(0);
@@ -59,7 +64,7 @@ function create() {
     platforms = this.physics.add.staticGroup();
 
     //додаємо цикл для землі на весь екран
-    for (var x = 0; x < worldWidth; x = x + 32) {
+    for (var x = 0; x < worldWidth; x = x + 150) {
         //console.log(x)
         platforms.create(x, 1080 - 250, 'ground')
             .setOrigin(0, 0)
@@ -92,7 +97,7 @@ function create() {
     //Створюємо гравця
     player = this.physics.add.sprite(1500, 600, 'dude');
     player.setBounce(0.2);
-    player.setCollideWorldBounds(false);y
+    player.setCollideWorldBounds(true);y
 
 
     //додаємо кнопку перезавантаження 
@@ -207,15 +212,16 @@ function create() {
 
 
 
-    //reset button
-        var resetButton = this.add.text(100, 200, 'reset', { fontSize: '25px', fill: '#ccc'})
+    //reset button(перезапуск)
+        var resetButton = this.add
+        .text(100, 150, 'reset', { fontSize: '25px', fill: '#ccc'})
         .setInteractive()
         .setScrollFactor(0);
 
-    //resetButton.on( 'pointerdown', function () {
-    //console.log( 'restart')
-    //refreshBody()
-    //});
+    resetButton.on( 'pointerdown', function () {
+    console.log( 'restart')
+    refreshBody()
+    });
 
 
     // формування смуги життя 
@@ -256,7 +262,14 @@ function collectStar(player, stars) {
     stars.disableBody(true, true);
     
     score += 1;
-    scoreText.setText('Score: ' + score);
+    scoreText.setText('Score: ' + score); 
+    }
+
+    //перезапуск гри
+    function refreshBody()
+    {
+        console.log('game over')
+        location.reload()
+    }
 
 
-}
