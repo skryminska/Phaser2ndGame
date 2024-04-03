@@ -32,7 +32,7 @@ var lifesText;
 
 function preload() {
     // Вставити фон і деталі гри(асети)
-    this.load.image('fon', 'assets/BG.jpg');
+    this.load.image('fon', 'assets/fonfr.jpg');
     this.load.image('ground', 'assets/platform.png'); //замінти!
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
     //додали нові асети
@@ -199,6 +199,7 @@ function create() {
         .setOrigin(0, 0)
         .setScrollFactor(0)
 
+
     //життя персонажа
     //lifeText = this.add.text(800, 100, showLife(), { fontSize: '40px', foll: '#FFF'})
     //.setIrigin(0, 0)
@@ -207,9 +208,9 @@ function create() {
 
 
     //reset button
-        var resetButton = this.add.text(400, 450, 'reset', { fontSize: '40px', fill: '#ccc'})
-        //.setInteractive()
-        //.setScrollFactor(0);
+        var resetButton = this.add.text(100, 200, 'reset', { fontSize: '25px', fill: '#ccc'})
+        .setInteractive()
+        .setScrollFactor(0);
 
     //resetButton.on( 'pointerdown', function () {
     //console.log( 'restart')
@@ -218,18 +219,7 @@ function create() {
 
 
     // формування смуги життя 
-    //function showLife () {
-    //var lifeLine = ''
-
-    //for (var i = 0: i < life; i++) {
-    //lifeLine = lifeLine + ''
-
-
-
-    //}
-
-    //return lifeLine
-    //}
+    
 }
 
 function update() {
